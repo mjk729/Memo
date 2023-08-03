@@ -19,6 +19,7 @@ public class UserService {
 				, String email) {
 		
 		
+		
 		User user = userRepository.save(User.builder()
 				.loginId(loginId)
 				.password(password)
