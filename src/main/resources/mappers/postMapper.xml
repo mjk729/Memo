@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+  <mapper namespace="com.memo.pk.post.repository.PostRepository">
+  
+  	<insert id="insertPost" parameterType="map">
+  	insert into
+  		post
+  	(
+  		userId
+  		,title
+  		,content
+  	)
+  	value
+  	(
+  		#{userId}
+  		,#{title}
+  		,#{content}
+  	)
+  	</insert>
+  
+  	<select id="selectPostList" resultType="com.memo.pk.post.domain.Post" parameterType="int">
+  		select
+  			id
+			,userId
+			,title
+			,content
+			,imagePath
+			,createdAt
+			,updatedAt
+		from
+			post
+		where
+			userId = #{userId}
+		order by
+			id desc
+  	</select>
+  
+  	
+  	<select id="selectPost" parameterType="int" resultType="com.memo.pk.post.domain.Post">
+  		select
+  			id
+			,userId
+			,title
+			,content
+			,imagePath
+			,createdAt
+			,updatedAt
+		from
+			post
+		where
+			id = #{id}
+  	</select>
+  
+  
+  </mapper>

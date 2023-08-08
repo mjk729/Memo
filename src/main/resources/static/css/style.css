@@ -18,6 +18,11 @@ header{
 	height:450px;
 }
 
+.contents > .contents-box{
+	width:700px;
+}
+
+
 footer{
 	height: 80px;
 	background-color: #dddddd;

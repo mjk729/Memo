@@ -17,19 +17,14 @@
 	<div id="wrap">
 		<c:import url="/WEB-INF/jsp/include/header.jsp" />
 		<section class="contents d-flex justify-content-center">
-			<div class="join-box">
-				<h1 class="text-center my-4">회원가입</h1>
+			<div class="join-box my-5 text-center">
+				<h1 class="text-center my-4">로그인</h1>
 				<input type="text" placeholder="아이디" class="form-control mt-2 mb-2"
 					id="idInput"> <input type="password" placeholder="비밀번호"
-					class="form-control mt-2 mb-2" id="passwordInput"> <input
-					type="password" placeholder="비밀번호 확인"
-					class="form-control mt-2 mb-2" id="passwordConfirmInput"> <input
-					type="text" placeholder="이름" class="form-control mt-2 mb-2"
-					id="nameInput"> <input type="text" placeholder="이메일"
-					class="form-control mt-2 mb-5" id="emailInput">
+					class="form-control mt-2 mb-2" id="passwordInput">
 				<button type="button" class="btn btn-secondary btn-block mt-3 mb-3"
-					id="joinBtn">가입</button>
-
+					id="loginBtn">로그인</button>
+				<a href="/user/join-view" class="mt-3">회원가입</a>
 			</div>
 		</section>
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
@@ -46,19 +41,14 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
 		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous"></script>
-
-	<script>
-		$(document).ready(function() {
-			$("#joinBtn").on("click", function() {
+		
+		<script>
+			$(document).ready(function(){
 				
-				let id = $("#idInput").val();
-				let password = $("#passwordInput").val();
-				let passwordConfirm = $("#passwordConfirmInput").val();
-				let name = $("#nameInput").val();
-				let email = $("#emailInput").val();
+				$("#loginBtn").on("click", function(){
+					let id = $("#idInput").val();
+					let password = $("#passwordInput").val();
 				
-				
-				// 유효성 검사
 				if(id == ""){
 					alert("아이디를 입력하세요");
 					return;
@@ -69,39 +59,28 @@
 					return;
 				}
 				
-				if(password != passwordConfirm){
-					alert("비밀번호가 일치하지 않습니다");
-					return;
-				}
-				if(name == ""){
-					alert("이름을 입력하세요");
-					return 0 ;
-				}
-				if(email == ""){
-					alert("이메일을 입력하세요");
-					return;
-				}
-				
 				$.ajax({
 					type:"post"
-					,url:"/user/join"
-					,data:{"loginId":id, "password":password, "name":name, "email":email}
+					,url:"/user/login"
+					,data:{"loginId":id,"password":password}
 					,success:function(data){
 						if(data.result == "success"){
-							location.href = "/user/login-view";
+							location.href = "/post/list-view";
 						} else{
-							alert("가입 실패");
+							alert("아이디, 비밀번호를 확인하세요");
 						}
 					}
 					,error:function(){
-						alert("가입 에러!!");
+						alert("로그인 에러");
+						
 					}
 				});
 				
+				
+				});
+				
 			});
-			
-		});
-	</script>
-
+		</script>
+		
 </body>
 </html>
