@@ -10,7 +10,10 @@ import com.memo.pk.post.domain.Post;
 @Repository
 public interface PostRepository {
 
-	public int insertPost(@Param("userId") int userId, @Param("title") String title, @Param("content") String content);
+	public int insertPost(@Param("userId") int userId
+			, @Param("title") String title
+			, @Param("content") String content
+			, @Param("imagePath") String imagePath);
 	
 	public List<Post> selectPostList(@Param("userId") int userId);
 	

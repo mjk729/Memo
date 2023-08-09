@@ -13,12 +13,14 @@
   		userId
   		,title
   		,content
+  		, imagePath
   	)
   	value
   	(
   		#{userId}
   		,#{title}
   		,#{content}
+  		,#{imagePath}
   	)
   	</insert>
   
