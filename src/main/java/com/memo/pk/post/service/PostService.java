@@ -35,4 +35,23 @@ public class PostService {
 		return postRepository.selectPost(id);
 	}
 	
+	public int updatePost(int postId, String title, String content) {
+		return postRepository.updatePost(postId, title, content);
+	}
+	
+	public int deletePost(int postId, int userId) {
+		// 삭제 대상의 imagePath 경로 얻기
+		Post post = postRepository.selectPost(postId);
+		
+		if(userId == post.getUserId()) {
+			FileManager.removeFile(post.getImagePath());
+			
+			return postRepository.deletePost(postId);			
+		} else {
+			return 0;
+		}
+		
+	}
+	
+	
 }

@@ -11,10 +11,14 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileManager {
 
 	
-	private static final String FILE_UPLOAD_PATH = "C:\\Users\\kimmi\\web\\jung_project\\springProject\\upload\\memo";
+	public static final String FILE_UPLOAD_PATH = "C:\\Users\\kimmi\\web\\jung_project\\springProject\\upload\\memo";
 	
 	// 파일 저장 -> 경로 리턴
 	public static String saveFile(int userId, MultipartFile file) {
+		
+		if(file == null) {
+			return null;
+		}
 		
 		// 같은 이름의 파일이 구분되어서 저장되도록 구성
 		// 폴더를 만들어서 파일을 저장
@@ -61,5 +65,46 @@ public class FileManager {
 		return "/images/" + directoryName + file.getOriginalFilename();
 		
 	}
+	
+	public static boolean removeFile(String filePath) {
+		
+		// 파일 정보가 없는 경우
+		if(filePath == null) {
+			return false;
+		}
+		
+		// 실제 파일이 저장된 파일 경로 만들기
+		
+		String fullFilePath = FILE_UPLOAD_PATH + filePath.replace("/images", "");
+		
+		Path path = Paths.get(fullFilePath);
+		
+		// 파일이 존재하는지
+		if(Files.exists(path)) {
+			
+			try {
+				Files.delete(path);
+			} catch (IOException e) {
+			
+				e.printStackTrace();
+				return false;
+			}
+			
+		}
+		Path dirPath = path.getParent();
+		
+		if(Files.exists(dirPath)) {
+			try {
+				Files.delete(dirPath);
+			} catch (IOException e) {
+			
+				e.printStackTrace();
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
 	
 }
